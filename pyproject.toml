@@ -1,0 +1,23 @@
+[project]
+name = "n8n-mcp"
+version = "0.1.0"
+description = "A MCP server project"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "mcp>=1.9.4",
+    "psycopg2-binary",
+    "numpy",
+    "python-dotenv",
+    "requests",
+]
+[[project.authors]]
+name = "Shifusen"
+email = "quanhong329@gmail.com"
+
+[build-system]
+requires = [ "hatchling",]
+build-backend = "hatchling.build"
+
+[project.scripts]
+n8n-mcp = "n8n_mcp.main:main"

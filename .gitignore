@@ -1,0 +1,13 @@
+# Virtual Environment
+.venv/
+__pycache__/
+*.pyc
+
+# Environment files
+.env
+
+# Processed workflows
+processed-workflows/
+
+# IDE files
+.vscode/
