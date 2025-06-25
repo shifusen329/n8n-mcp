@@ -115,15 +115,25 @@ async def handle_call_tool(
             result = {"status": "error", "message": f"Workflow with ID {args.get('workflow_id')} not found."}
     elif name == "vectorize_workflows":
         processed_workflows = process_all_workflows()
-        embeddings = [embedding_client.get_embedding(wf["description"]) for wf in processed_workflows]
-        result = {"status": "success", "count": len(embeddings)}
+        postgres_client.connect()
+        if not postgres_client.connection:
+            result = {"status": "error", "message": "Could not connect to PostgreSQL."}
+        else:
+            for workflow in processed_workflows:
+                embedding = embedding_client.get_embedding(workflow["description"])
+                if embedding:
+                    postgres_client.insert_workflow_embedding(workflow["id"], embedding)
+            postgres_client.disconnect()
+            result = {"status": "success", "message": f"Vectorized {len(processed_workflows)} workflows."}
     elif name == "search_similar_workflows":
-        processed_workflows = process_all_workflows()
-        embeddings = [embedding_client.get_embedding(wf["description"]) for wf in processed_workflows]
         query_embedding = embedding_client.get_embedding(args.get("query"))
         if query_embedding:
-            similar_indices = embedding_client.search_similar(query_embedding, embeddings, args.get("top_k", 5))
-            result = [processed_workflows[i] for i, score in similar_indices]
+            postgres_client.connect()
+            if not postgres_client.connection:
+                result = {"status": "error", "message": "Could not connect to PostgreSQL."}
+            else:
+                result = postgres_client.search_similar_workflows(query_embedding, args.get("top_k", 5))
+                postgres_client.disconnect()
         else:
             result = []
     elif name == "load_workflows_to_postgres":

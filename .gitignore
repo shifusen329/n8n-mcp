@@ -8,6 +8,10 @@ __pycache__/
 
 # Processed workflows
 processed-workflows/
+workflows/
 
 # IDE files
 .vscode/
+
+# Archive
+.archive/

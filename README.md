@@ -1,6 +1,8 @@
 # n8n-mcp MCP server
 
-A MCP server project
+A MCP server project.
+
+This project is a Python adaptation of the original Node.js project by [kingler](https://github.com/kingler/n8n_agent).
 
 ## Components
 
@@ -45,7 +47,7 @@ On Windows: `%APPDATA%/Claude/claude_desktop_config.json`
       "command": "uv",
       "args": [
         "--directory",
-        "/home/administrator/workspace/n8n_agent/n8n-mcp",
+        "(path_to_repo)/n8n-mcp",
         "run",
         "n8n-mcp"
       ]
