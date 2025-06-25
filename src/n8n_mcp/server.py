@@ -71,7 +71,7 @@ async def handle_list_tools() -> list[types.Tool]:
         ),
         types.Tool(
             name="vectorize_workflows",
-            description="Generate embeddings for all workflows.",
+            description="Generate and store vector embeddings for all workflows to be used for context search.",
             inputSchema={"type": "object", "properties": {}},
         ),
         types.Tool(
@@ -88,7 +88,7 @@ async def handle_list_tools() -> list[types.Tool]:
         ),
         types.Tool(
             name="load_workflows_to_postgres",
-            description="Load all processed workflows into the PostgreSQL database.",
+            description="Load workflow metadata into the PostgreSQL database for production use.",
             inputSchema={"type": "object", "properties": {}},
         ),
     ]
